@@ -25,7 +25,7 @@ Shut allows exactly four shapes of message and nothing else:
 | Shape | Register | Rule |
 |---|---|---|
 | Step label | telegraphic | ≤ 4 words, no comma or dash inside, most often absent entirely |
-| Question | plain | only when two readings would change what gets built |
+| Question | plain | only when your request can be read two ways and the two would give different results |
 | Warning | plain | only when you must decide or act right now |
 | Answer | plain | ≤ 8 lines, no tables, no headings, no list of the steps taken |
 
@@ -107,16 +107,16 @@ the network, and every file it changes is copied next to itself first.
 
 | Path | What happens | Why |
 |---|---|---|
-| `~/.claude/skills/{ccshut,shut}/` | the plugin is copied in | this is where Claude Code loads plugins from |
-| `~/.codex/skills/`, `~/.config/opencode/skills/`, `~/.gemini/skills/`, `~/.cursor/skills-cursor/`, `~/.agents/skills/` | a flat `SKILL.md` is copied in | each agent reads skills from its own path |
-| `~/.codex/hooks.json` + `~/.codex/hooks/shut-*` | two `SessionStart` entries are added | a skill loads on demand, which is already too late for a rule about how to talk; the hook injects it every session. Other hooks in the file are left alone |
-| `~/.config/opencode/AGENTS.md`, `~/.gemini/GEMINI.md` | a marked block is added | these agents have no session-start hook, so the text sits in a file they read every session |
-| `~/.claude/settings.json` | `CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION=false`, `CLAUDE_CODE_ENABLE_AWAY_SUMMARY=0` | both print text that Shut bans |
-| `~/.claude/settings.local.json` | `outputStyle: Shut` | a built-in output style can drop the brevity rules; this one repeats them |
-| `~/.claude/output-styles/shut.md` | installed | the output style itself |
-| every project `.claude/` directory found | the same two settings | so the rule holds in every project, not only globally |
-| the `language` key in those settings | **removed** | any value there injects "Always respond in \<lang\>" over all explanations and overrides Shut's four plain-English shapes, whatever language it names |
-| `~/.shut-backups/` | originals and state | this is what `uninstall` restores from |
+| `~/.claude/skills/{ccshut,shut}/` | the plugin is copied in | Claude Code looks for plugins here and nowhere else; without the copy the rule simply never switches on |
+| `~/.codex/skills/`, `~/.config/opencode/skills/`, `~/.gemini/skills/`, `~/.cursor/skills-cursor/`, `~/.agents/skills/` | a flat `SKILL.md` is copied in | every agent has its own skills path and there is no shared one — hence a copy in each |
+| `~/.codex/hooks.json` + `~/.codex/hooks/shut-*` | two `SessionStart` entries are added | a skill loads only once the agent decides it is relevant, and a rule about how to talk is needed from the first line. The hook hands it over at the start of every session. Other hooks in the file stay where they are |
+| `~/.config/opencode/AGENTS.md`, `~/.gemini/GEMINI.md` | a marked block is added | these two agents have no session-start hook. The only way to give them the rule every time is to put the text in a file they read on their own |
+| `~/.claude/settings.json` | `CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION=false`, `CLAUDE_CODE_ENABLE_AWAY_SUMMARY=0` | these are next-prompt suggestions and an auto-summary after a pause. Both print text of their own, you pay for it, and Shut bans it |
+| `~/.claude/settings.local.json` | `outputStyle: Shut` | a built-in output style can drop the brevity rules; this one repeats them, so they do not go missing |
+| `~/.claude/output-styles/shut.md` | installed | the style file itself; without it the line above points at nothing |
+| every project `.claude/` directory found | the same two settings | Claude reads project settings on top of the global ones, so a project can quietly turn back on what you just switched off |
+| the `language` key in those settings | **removed** | any value there adds "Always respond in \<lang\>" to every explanation. Even the 4-word step label switches language and the four shapes stop holding — whatever language it names |
+| `~/.shut-backups/` | originals and state | copies of every file before it changed, plus a list of what exactly changed; `uninstall` reads it and puts everything back |
 
 **Why it needs disk access.** Finding project `.claude` directories is the only step that
 leaves the home directory: it walks `$HOME` plus every local drive (Windows) or every volume
@@ -139,6 +139,11 @@ uninstall.cmd                   # Windows
 bash uninstall.sh               # macOS / Linux
 /plugin uninstall ccshut@shuten # Claude Code, if you installed through the marketplace
 ```
+
+Run the script from the same directory you cloned the repo into — `uninstall.cmd` and
+`uninstall.sh` live there. If you have already deleted it, cloning again is enough: the
+installer records what it changed in `~/.shut-backups/uninstall.json`, not in the repo
+directory, so a fresh clone sees the same state.
 
 It removes only what the installer put there: skill directories carrying the
 `.shut-install.json` marker (`--force` for the rest), its own entries in `~/.codex/hooks.json`,
