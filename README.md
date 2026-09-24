@@ -71,7 +71,20 @@ A `PostToolUse` hook checks every file written and hands the agent back a list o
 ```
 
 Your own GitHub repo works as a marketplace with no registration: Claude clones it itself and
-reads `.claude-plugin/marketplace.json`. To update: `/plugin marketplace update shuten`.
+reads `.claude-plugin/marketplace.json`.
+
+**Auto-update.** Third-party marketplaces start with it off. Turn it on once: `/plugin` →
+**Marketplaces** → `shuten` → **Enable auto-update**. Or in `~/.claude/settings.json`:
+
+```json
+"extraKnownMarketplaces": {
+  "shuten": { "source": { "source": "github", "repo": "Niedvin/Shuten" }, "autoUpdate": true }
+}
+```
+
+Claude Code then checks GitHub after each launch and pulls every new commit; `/reload-plugins`
+loads it without a restart. The plugins carry no `version` field on purpose — the commit is
+the version, so every push reaches users. By hand: `/plugin marketplace update shuten`.
 
 ### Claude Desktop — by drag and drop
 

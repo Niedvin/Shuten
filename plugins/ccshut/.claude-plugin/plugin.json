@@ -1,7 +1,6 @@
 {
   "name": "ccshut",
   "description": "Against context rot: a comment is written only if it stays true after the code around it is rewritten and a senior working in the repo could not recover it from the code itself. One line ending in the date, under 5% of a file's lines; stale and decorative comments are deleted.",
-  "version": "2.4.1",
   "author": {
     "name": "Niedvin"
   },
