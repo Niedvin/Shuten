@@ -82,9 +82,10 @@ reads `.claude-plugin/marketplace.json`.
 }
 ```
 
-Claude Code then checks GitHub after each launch and pulls every new commit; `/reload-plugins`
-loads it without a restart. The plugins carry no `version` field on purpose — the commit is
-the version, so every push reaches users. By hand: `/plugin marketplace update shuten`.
+Claude Code then checks GitHub after each launch and pulls a release once its `version`
+changes; `/reload-plugins` loads it without a restart. By hand: `/plugin marketplace update shuten`.
+Current version: **1.1.0**. A release bumps `version` in `plugin.json`, `manifest.json` and
+`marketplace.json` together; a push without the bump reaches nobody.
 
 ### Claude Desktop — by drag and drop
 

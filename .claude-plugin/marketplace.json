@@ -11,6 +11,7 @@
       "displayName": "CCShut",
       "source": "./plugins/ccshut",
       "description": "Against context rot: a comment is written only if it stays true after the code around it is rewritten and a senior working in the repo could not recover it from the code itself. One line ending in the date, under 5% of a file's lines; stale and decorative comments are deleted.",
+      "version": "1.1.0",
       "author": {
         "name": "Niedvin"
       },
@@ -31,6 +32,7 @@
       "displayName": "Shut",
       "source": "./plugins/shut",
       "description": "Token savings: drops progress reports, tool-call announcements and the rest of the text that changes nothing. Four shapes, all plain English — a step label of at most 4 words, plus a question, a warning and a final answer of at most 8 lines. The code and the result of the work are left untouched.",
+      "version": "1.1.0",
       "author": {
         "name": "Niedvin"
       },

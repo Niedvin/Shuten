@@ -1,6 +1,7 @@
 {
   "name": "shut",
   "description": "Token savings: drops progress reports, tool-call announcements and the rest of the text that changes nothing. Four shapes, all plain English — a step label of at most 4 words, plus a question, a warning and a final answer of at most 8 lines. The code and the result of the work are left untouched.",
+  "version": "1.1.0",
   "author": {
     "name": "Niedvin"
   },
