@@ -27,7 +27,7 @@ Shut allows exactly four shapes of message and nothing else:
 | Step label | telegraphic | ≤ 4 words, no comma or dash inside, most often absent entirely |
 | Question | plain | only when your request can be read two ways and the two would give different results |
 | Warning | plain | only when you must decide or act right now |
-| Answer | plain | ≤ 8 lines, no tables, no headings, no list of the steps taken |
+| Answer | plain | ≤ 8 lines (up to 30 when a large task closes), no tables, no headings, no list of the steps taken |
 
 No running commentary, no announcing a tool call right before making it, no "run it and see
 how it works". Numbers as digits, relations as symbols (`>`, `≈`, `→`, `∵`).
@@ -84,8 +84,8 @@ reads `.claude-plugin/marketplace.json`.
 
 Claude Code then checks GitHub after each launch and pulls a release once its `version`
 changes; `/reload-plugins` loads it without a restart. By hand: `/plugin marketplace update shuten`.
-Current version: **1.1.0**. A release bumps `version` in `plugin.json`, `manifest.json` and
-`marketplace.json` together; a push without the bump reaches nobody.
+Current version: **1.2.0** (shut and ccshut). A release bumps `version` in `plugin.json`, `manifest.json` and
+`marketplace.json` together; a push without the bump reaches nobody. A small fix bumps the last digit (+0.0.1), a large change the middle one (+0.1.0).
 
 ### Claude Desktop — by drag and drop
 
