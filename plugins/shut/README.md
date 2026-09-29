@@ -8,7 +8,7 @@ readable by someone who does not write code.
 | Step label | while working | telegraphic | 4 words max |
 | Question | a real chance of misunderstanding | plain | question + short options |
 | Warning | the user must decide or act now | plain | 1–2 sentences |
-| Answer | the turn ends without a tool call | plain | what happened, then what it changes for them — 8 lines, no tables |
+| Answer | the turn ends without a tool call | plain | what happened, then what it changes for them — 8 lines (30 when a large task closes), no tables |
 
 All four are English. The split is between registers and it belongs to the rule, not to a
 project: a label is telegraphic, the other three are plain sentences in common words. A line
@@ -33,6 +33,8 @@ lands in the conversation itself, disabling the plugin mid-session does not remo
 | `hooks/build.py` | Rebuilds the payload from `context.md`. |
 | `hooks/session-start` | The hook. Rebuilds if stale, then prints the payload. |
 | `hooks/run-hook.cmd` | Polyglot cmd/bash wrapper so the hook runs on Windows too. |
+| `hooks/label_watch.py` | PostToolUse: flags a step label that broke the rules, and sends one reminder after 30 min of silence (`SHUT_HEARTBEAT_MIN` changes the 30). |
+| `hooks/stop_gate.py` | Stop: blocks a final answer with a heading, a table, the wrong language or over 30 lines (`SHUT_ANSWER_LINES` changes the 30). |
 | `skills/shut/SKILL.md` | The full rule, loaded on demand. |
 
 ## Editing the rule

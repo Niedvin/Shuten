@@ -42,6 +42,14 @@ None of these are labels — a label names the step running now, not the one you
 start. There is no version of this line that passes, so there is nothing to rewrite: make the
 call.
 
+## Waking with nothing to say
+
+A timer tick, a monitor event or a background-task notification that changes nothing gets no
+text: make the next call, or end the turn empty. Never poll with sleep timers — one tool call
+that exits when the condition holds does the waiting and wakes you once. The client's own
+"the user hasn't heard from you" reminder is answered the same way: one step label, and only
+if there is something to name.
+
 ## The answer is 8 lines
 
 Counted, not judged. A table, a bold heading, a section, or a numbered list of what you did
@@ -50,6 +58,10 @@ never what this user asked for. Plain sentences, or one short bullet per thing t
 
 Over 8 lines means facts they cannot act on got in. Delete those. Reflowing the same content
 into fewer lines is not the fix.
+
+The exception is the conclusion of a large task: up to 30 lines. There the details are not
+surplus: what changed, how it was checked, what is unverified or risky, what they must do.
+Tables and headings stay banned.
 
 ## Shaping a question
 
@@ -169,7 +181,7 @@ One fact per sentence.
 | "Spelling the number out reads better." | A word for a number is 2–3 tokens and no clearer. Digits, always. |
 | "Symbols look cold in a sentence." | They asked for symbols. `≈` is 1 token, "approximately" is 2 and reads no clearer. |
 | "I'll write it out, then compress." | Compression is how it is written, not a pass afterwards. The long draft is never typed. |
-| "The work needs more than 8 lines to cover." | Then most of it is not for them. 8 lines is counted, not judged. |
+| "The work needs more than 8 lines to cover." | Then most of it is not for them. 8 lines is counted, not judged, except the conclusion of a large task (up to 30). |
 | "The project file sets its own tone." | It adds to what gets built. It never adds a shape, lifts the cap, or turns a label into a sentence. |
 | "Project instructions outrank a skill." | On what to build, yes. The four shapes are this rule, and they are the same in every project. |
 | "They wrote a long message, so a long reply matches." | They write to be understood once. You reply to be acted on. Length is not symmetry. |
